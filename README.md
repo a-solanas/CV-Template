@@ -2,6 +2,8 @@
 
 A single-file LaTeX CV. Two-column layout (70/30), red wine accent colour, lorem ipsum placeholder content throughout.
 
+![CV Template preview](Template.png)
+
 ## Structure
 
 - **Header** — name, title, contact links
@@ -22,3 +24,5 @@ A single-file LaTeX CV. Two-column layout (70/30), red wine accent colour, lorem
 ## Usage
 
 Compile with `pdflatex`. Requires: `paracol`, `tikz`, `enumitem`, `fancyhdr`, `xcolor`, `hyperref`, `geometry`.
+
+
