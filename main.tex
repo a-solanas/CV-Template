@@ -1,0 +1,312 @@
+% ============================================================
+%  CV Template
+%  Source: https://github.com/a-solanas/CV-Template
+%  License: MIT
+% ============================================================
+\documentclass[10pt, a4paper]{article}
+
+% ── Encoding & fonts ────────────────────────────────────────
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% ── Page geometry ───────────────────────────────────────────
+\usepackage[
+  a4paper,
+  top=1.4cm, bottom=1.4cm,
+  left=1.5cm, right=1.5cm
+]{geometry}
+
+% ── Colours ─────────────────────────────────────────────────
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}
+\definecolor{accent}{HTML}{722F37}      % red wine
+\definecolor{textmain}{HTML}{1A1A2E}    % near-black
+\definecolor{textmuted}{HTML}{6B7280}   % muted grey
+\definecolor{pillbg}{HTML}{F3F4F6}      % pill background
+\definecolor{pillborder}{HTML}{D1D5DB}  % pill border
+\definecolor{promoColor}{HTML}{722F37}  % italic promotion note
+
+% ── Hyperlinks ──────────────────────────────────────────────
+\usepackage[hidelinks]{hyperref}
+\hypersetup{colorlinks=true, urlcolor=accent, linkcolor=accent}
+
+% ── Multi-column ────────────────────────────────────────────
+\usepackage{paracol}
+
+% ── Lists ───────────────────────────────────────────────────
+\usepackage{enumitem}
+\setlist[itemize]{
+  leftmargin=1.1em,
+  itemsep=1.5pt,
+  topsep=3pt,
+  parsep=0pt,
+  label={\small\color{accent}\textbullet}
+}
+
+% ── Misc ────────────────────────────────────────────────────
+\usepackage{tikz}
+\usepackage{ragged2e}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\rfoot{\small\color{textmuted}Loremium, \today}
+\setlength{\footskip}{0pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\color{textmain}
+
+% ============================================================
+%  HELPER COMMANDS
+% ============================================================
+
+% Full-width section heading
+\newcommand{\cvsection}[1]{%
+  \vspace{10pt}%
+  {\color{accent}\small\bfseries\MakeUppercase{#1}}%
+  \par\nobreak\vspace{2pt}%
+  {\color{accent!50}\hrule height 0.8pt}%
+  \vspace{5pt}%
+}
+
+% \cvjob{Title}{Period}{Company}{Location}{Promotion}{datelevel}
+% datelevel: t = title line, c = company line (default)
+\newcommand{\cvjob}[6]{%
+  \ifx c#6
+    \textbf{#1}\\[1pt]
+    {\color{textmuted}\small #3\ifx\relax#4\relax\else{\ ,\ #4}\fi}\hfill{\color{textmuted}\small #2}%
+  \else
+    \textbf{#1}\hfill{\color{textmuted}\small #2}%
+    \ifx\relax#3\relax\else\\[1pt]{\color{textmuted}\small #3\ifx\relax#4\relax\else{\ ,\ #4}\fi}\fi%
+  \fi
+  \ifx\relax#5\relax\else\\[2pt]{\color{promoColor}\small\itshape #5}\fi%
+  \par\vspace{3pt}%
+}
+
+% Education entry
+% \cvedu{Degree}{Period}{Institution}
+\newcommand{\cvedu}[3]{%
+  \begin{minipage}[t]{0.56\linewidth}
+    \raggedright\small\textbf{#1}
+  \end{minipage}%
+  \begin{minipage}[t]{0.44\linewidth}
+    \raggedleft{\color{textmuted}\small #2}
+  \end{minipage}\\[2pt]
+  {\color{textmuted}\small #3}%
+  \par\vspace{7pt}%
+}
+
+% Skill pill
+\newcommand{\pill}[1]{%
+  \tikz[baseline=(t.base)]{
+    \node[
+      fill=pillbg,
+      draw=pillborder,
+      line width=0.5pt,
+      rounded corners=3pt,
+      inner xsep=5pt,
+      inner ysep=2.5pt,
+      font=\small,
+      text=textmain
+    ](t){#1};
+  }\hspace{1pt}%
+}
+
+% Skill group
+\newcommand{\skillgroup}[2]{%
+  {\small\bfseries\color{textmain}#1}\\[4pt]
+  #2\par\vspace{5pt}%
+}
+
+% Publication entry
+% \cvpub{Title}{URL}{Venue}{Date}
+\newcommand{\cvpub}[4]{%
+  \ifx\relax#2\relax
+    {\small\textbf{#1}}%
+  \else
+    {\small\textbf{\href{#2}{#1}}}%
+  \fi\\[1pt]
+  {\color{textmuted}\small #3\ifx\relax#4\relax\else{\ \textperiodcentered\ #4}\fi}%
+  \par\vspace{5pt}%
+}
+
+% Course / Certification entry
+% \cvcert{Name}{URL}{Entity}{Date}
+\newcommand{\cvcert}[4]{%
+  \ifx\relax#2\relax
+    {\small\textbf{#1}}%
+  \else
+    {\small\textbf{\href{#2}{#1}}}%
+  \fi\\[1pt]
+  {\color{textmuted}\small #3\hfill #4}%
+  \par\vspace{5pt}%
+}
+
+% ============================================================
+%  DOCUMENT
+% ============================================================
+\begin{document}
+
+% ─────────────────────────────────────────────────────────────
+%  HEADER  (centred, plain white)
+% ─────────────────────────────────────────────────────────────
+\begin{center}
+  {\fontsize{28}{32}\bfseries\selectfont\color{textmain} Lorem Ipsum}\\[5pt]
+  {\color{textmuted}\large Dolor Sit Amet | Consectetur Adipiscing | Loremium Corp.}\\[7pt]
+  {\small\color{textmuted}
+    \href{mailto:lorem.ipsum@example.com}{lorem.ipsum@example.com}
+    \quad\textperiodcentered\quad
+    \href{https://www.linkedin.com/in/lorem-ipsum/}{in/lorem-ipsum}
+    \quad\textperiodcentered\quad
+    \href{https://github.com/lorem-ipsum}{github/lorem-ipsum}
+    \quad\textperiodcentered\quad
+    Loremium, Ipsum, Remote
+  }
+\end{center}
+
+% ─────────────────────────────────────────────────────────────
+%  PROFESSIONAL SUMMARY — full width above columns
+% ─────────────────────────────────────────────────────────────
+\cvsection{Professional Summary}
+
+{\color{textmain}
+Vehicula netus et inceptos torquent non montes consequat sem, varius dapibus augue euismod est fermentum risus, sapien blandit rutrum mattis hac eros odio. Viverra dictum a ac ante ut curae, potenti sodales neque imperdiet metus facilisi, mi mus convallis hendrerit eu. Natoque ornare dictumst semper tortor lobortis lacus nascetur accumsan faucibus, placerat sociis nunc tempor suspendisse cum sollicitudin habitant pulvinar.
+}
+
+% ─────────────────────────────────────────────────────────────
+%  TWO-COLUMN BODY  —  left 70 % · right 30 %
+% ─────────────────────────────────────────────────────────────
+\columnratio{0.70}
+\begin{paracol}{2}
+
+% ════════════════════════════════════════
+%  LEFT COLUMN — Work Experience
+% ════════════════════════════════════════
+
+\cvsection{Work Experience}
+
+% ── Most Recent Role ─────────────────────
+\cvjob{Dolor Sit Amet --- Consectetur Division}
+      {2020 --- Now}
+      {Loremium Corp.}
+      {Ipsum City, Remote}
+      {}
+      {c}
+\begin{itemize}
+  Malesuada penatibus libero porta luctus integer tellus nostra commodo, aliquet egestas tempus nisi donec volutpat facilisis, fringilla justo massa vel dis condimentum ultricies.
+  \item \textbf{Point 1:} Parturient elementum sagittis vulputate eget nisl tristique leo magnis vivamus platea aptent ullamcorper curabitur, nullam ad litora maecenas enim urna suscipit ultrices cras senectus ligula.
+  \item \textbf{Platform:} Dignissim purus porttitor iaculis aliquam conubia mollis pretium laoreet, venenatis quam nec morbi proin molestie nam, primis himenaeos class bibendum in quis felis.
+  \item \textbf{Emerging Tech:} Quisque magna nulla orci erat nibh taciti mauris sociosqu habitasse fusce lectus interdum, eleifend feugiat cursus ridiculus praesent fames.
+\end{itemize}
+
+\vspace{4pt}
+
+% ── Second Role ─────────────────────────
+\cvjob{Dolor Sit Amet --- Velit Congue}
+      {2018 --- 2020}
+      {Loremium Corp.}
+      {Ipsum City, Remote}
+      {}
+      {c}
+\begin{itemize}
+  Libero enim faucibus erat sed taciti varius rhoncus elementum hac, nascetur facilisi lectus a tincidunt quisque bibendum torquent consequat, ut sollicitudin ad imperdiet netus ridiculus feugiat auctor. Ac pharetra suspendisse placerat dapibus pulvinar, vehicula dictum porta justo, laoreet vestibulum integer diam.
+\end{itemize}
+
+\vspace{4pt}
+
+% ── Third Role ──────────────────────────
+\cvjob{Dolor Sit Amet --- Tempor }
+      {2016 --- 2018}
+      {Loremium Corp.}
+      {Ipsum City}
+      {}
+      {t}
+\begin{itemize}
+  \item Velit sodales fermentum viverra nam ullamcorper vulputate himenaeos pretium cubilia vitae, accumsan commodo habitasse tellus metus quis nisi urna pellentesque, cursus habitant cum aliquam non dui congue fusce aliquet.
+  \item Eget tempus maecenas aptent tortor molestie inceptos etiam, eros eu sapien duis parturient magnis class facilisis, posuere est nullam curae in gravida.
+\end{itemize}
+
+\vspace{4pt}
+
+% ── Earlier Roles (condensed) ────────────
+\cvjob{Conubia hendrerit mauris --- Incididunt Division}
+      {2015 --- 2016}
+      {Loremium Corp.}
+      {Ipsum City}
+      {}
+      {t}
+\vspace{4pt}
+
+\cvjob{Curabitur auctor etiam --- Curae pharetra}
+      {2014--- 2015}
+      {Loremium Corp.}
+      {Ipsum City}
+      {}
+      {t}
+
+\vspace{4pt}
+
+% ── Courses & Certifications ─────────────
+\cvsection{Learning Paths}
+
+% \cvcert{Certification Name}{URL}{Issuing Body}{Year}
+\cvcert{Certified Vulputate Professional --- CVP}{https://example.com}{Loremium Institute}{2026}
+\cvcert{Elementum Expert --- ESE}{https://example.com}{Loremium Institute}{2025}
+\cvcert{Penatibus Expert --- CPNE}{https://example.com}{Loremium Institute}{2025}
+\cvcert{Lacinia --- WLT}{https://example.com}{Ipsum Academy}{2024}
+
+
+% ════════════════════════════════════════
+%  RIGHT COLUMN
+% ════════════════════════════════════════
+\switchcolumn
+
+% ── Technology ───────────────────────────
+\cvsection{Technology}
+
+\skillgroup{Dolor \& Amet}{
+  \pill{Sagittis} \pill{Nisl} \pill{Tristique} \\[4pt]
+  \pill{Vulputate} \pill{Egestas} \\[4pt]
+  \pill{Facilisis} \pill{Conubia}
+}
+
+\skillgroup{Tempor \& Labore}{
+  \pill{Penatibus} \pill{Rhoncus} \pill{Taciti}\\[4pt]
+  \pill{Himenaeos} \pill{Aptent} \pill{Inceptos} \\[4pt]
+  \pill{Torquent} 
+}
+
+\skillgroup{Emerging Fermentum}{
+  \pill{Agentic Stacks} \pill{Cubilia}\\[4pt]
+  \pill{Venenatis Top 10} \\[4pt]
+  \pill{Euismod} \pill{Dapibus}
+}
+
+% ── Academic History ─────────────────────
+\cvsection{Academic History}
+
+\cvedu{B.Sc.\ --- Dolor Sit Amet}
+      {2000 - 2000}
+      {Universitas Loremium}
+
+\cvedu{M.Sc.\ --- Consectetur}
+      {2000 - 2000}
+      {Amet Ipsum}
+
+\cvedu{B.Sc.\ --- Adipiscing}
+      {2000 - 2000}
+      {Universitas Loremium}
+
+% ── Publications ─────────────────────────
+\cvsection{Publications}
+
+% \cvpub{Title}{URL}{Authors}{Venue · Year}
+\cvpub{Pulvinar dui venenatis quisque congue sociis vestibulum potenti dapibus}
+      {https://example.com/lorem-paper}
+      {L. Ipsum, D. Sit, A. Amet, C. Adipiscing}
+      {International Workshop on Lorem Net and Software Engineering --- 2016}
+
+\end{paracol}
+
+\end{document}
